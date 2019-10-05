@@ -12,7 +12,7 @@
 
 #include <KnockDetector.h>
 
-KnockAnalogHandler handler = KnockDigitalHandler(2);
+KnockDigitalHandler handler = KnockDigitalHandler(2);
 KnockPattern pattern = KnockPattern::load(0);
 KnockRecorder recorder(&handler);
 
@@ -37,7 +37,8 @@ void loop() {
     String command = Serial.readStringUntil('\n');
     if (command == "record") {
       recorder.restart();
-      while ((int) recorder.handle()) {}
+      Serial.println("recording...");
+      while ((bool) recorder.handle()) {}
       pattern = recorder.getPattern();
       pattern.save(0);
       recorder.restart();

@@ -1,5 +1,6 @@
 # Overview
 This package allows you to record a knock pattern, saving it on the EEPROM and testing it on the fly. So you can react on a specific knock pattern.
+All that happens asynchronous and with many settings!
 
 # Example
 ```c++
@@ -17,7 +18,7 @@ This package allows you to record a knock pattern, saving it on the EEPROM and t
 
 #include <KnockDetector.h>
 
-KnockAnalogHandler handler = KnockDigitalHandler(2);
+KnockDigitalHandler handler = KnockDigitalHandler(2);
 KnockPattern pattern = KnockPattern::load(0);
 KnockRecorder recorder(&handler);
 
@@ -42,7 +43,8 @@ void loop() {
     String command = Serial.readStringUntil('\n');
     if (command == "record") {
       recorder.restart();
-      while ((int) recorder.handle()) {}
+      Serial.println("recording...");
+      while ((bool) recorder.handle()) {}
       pattern = recorder.getPattern();
       pattern.save(0);
       recorder.restart();

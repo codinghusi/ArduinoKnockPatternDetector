@@ -6,7 +6,8 @@ enum class KnockRecorder::KnockStatus : byte {
 };
 
 KnockRecorder::KnockRecorder(KnockHandler* handler, unsigned int timeout, unsigned short snap): handler(handler), timeout(timeout) {
-  
+  lastStatus = handler->checkKnock(); 
+  continueRecord();
 }
 
 KnockPattern KnockRecorder::getPattern() {
