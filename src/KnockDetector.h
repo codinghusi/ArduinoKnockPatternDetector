@@ -1,0 +1,5 @@
+#include "KnockAnalogHandler.h"
+#include "KnockDigitalHandler.h"
+#include "KnockHandler.h"
+#include "KnockRecorder.h"
+#include "KnockPattern.h"

@@ -5,14 +5,14 @@
 #include <ArduinoSTL.h>
 #include <vector>
 
-class KnockSequence {
+class KnockPattern {
  public:
-  static KnockSequence load(unsigned short address);
+  static KnockPattern load(unsigned short address);
   std::vector<byte> knocks;
-  KnockSequence();
-  KnockSequence(std::vector<byte>);
+  KnockPattern();
+  KnockPattern(std::vector<byte>);
   void save(unsigned short address);
-  byte test(KnockSequence);
+  byte test(KnockPattern);
   bool empty();
 };
 

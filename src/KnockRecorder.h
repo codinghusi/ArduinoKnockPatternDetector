@@ -2,7 +2,7 @@
 #define KNOCK_RECORDER_H
 
 #include "KnockHandler.h"
-#include "KnockSequence.h"
+#include "KnockPattern.h"
 #include <ArduinoSTL.h>
 #include <vector>
 
@@ -18,7 +18,7 @@ class KnockRecorder {
  public:
   enum class KnockStatus : byte;
   KnockRecorder(KnockHandler*, unsigned int = 1000, unsigned short = 64);
-  KnockSequence getSequence();
+  KnockPattern getPattern();
   void restart();
   KnockStatus handle();
   bool recording();

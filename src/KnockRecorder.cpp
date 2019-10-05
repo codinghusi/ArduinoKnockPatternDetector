@@ -9,14 +9,14 @@ KnockRecorder::KnockRecorder(KnockHandler* handler, unsigned int timeout, unsign
   
 }
 
-KnockSequence KnockRecorder::getSequence() {
-  KnockSequence sequence(std::vector<byte>(knocks.size()));
+KnockPattern KnockRecorder::getPattern() {
+  KnockPattern pattern(std::vector<byte>(knocks.size()));
   unsigned long total = std::accumulate(knocks.begin(), knocks.end(), 0);
   size_t len = knocks.size();
   for (int i = 0; i < len; ++i) {
-    sequence.knocks[i] = map(knocks[i], 0, total, 0, 255);
+    pattern.knocks[i] = map(knocks[i], 0, total, 0, 255);
   }
-  return sequence;
+  return pattern;
 }
 
 KnockRecorder::KnockStatus KnockRecorder::handle() {
