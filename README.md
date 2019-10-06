@@ -94,7 +94,8 @@ KnockDigitalHandler::KnockDigitalHandler(byte pin, bool negate): pin(pin), negat
 
 bool KnockDigitalHandler::checkKnock() {
   return negate ^ digitalRead(pin);
-}```
+}
+```
 
 ## KnockRecorder
 This class records your knock pattern. First of all you need to pass a KnockHandler so it knows when a knock happens. 
