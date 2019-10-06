@@ -2,7 +2,7 @@
 This package allows you to record a knock pattern, saving it on the EEPROM and testing it on the fly. So you can react on a specific knock pattern.
 All that happens asynchronous and with many settings!
 
-# Example
+## Example
 ```c++
 /*
   KnockPatternDetector
@@ -56,12 +56,14 @@ void loop() {
 }
 ```
 
+
+
 # Documentation
 It's not finished :)
 
 ## KnockHandler
 This is an interface that detects a knock. For example the KnockDigitalHandler detects a 'knock' when you press a button.
-How the KnockDigitalHandler is defined:
+How the KnockDigitalHandler is defined:  
 **Header**
 ```c++
 #ifndef KNOCK_DIGITAL_HANDLER_H
@@ -96,8 +98,11 @@ bool KnockDigitalHandler::checkKnock() {
 
 ## KnockRecorder
 This class records your knock pattern. First of all you need to pass a KnockHandler so it knows when a knock happens. 
-Every loop you need to call the method ```recorder.handle()``` to detect that knocks. After reaching the timeout (default 1000ms), it stops recording. You can check that using ```if (recorder.recording()) { }```.
-Then you can create your KnockPattern out of that using ```KnockPattern pattern = recorder.getPattern();```
+Every loop you need to call the method *recorder.handle()* to detect that knocks. After reaching the timeout (default 1000ms), it stops recording. You can check that using *if (recorder.recording()) { }*.
+Then you can create your KnockPattern out of that using 
+```c++
+KnockPattern pattern = recorder.getPattern();
+```
 
 ## KnockPattern
 A simple list of the knocks (timings in percent, as bytes). You can use the method test to see if another pattern matches it. The method returns an error (0-255), 0 is perfect and 255 is very bad:
