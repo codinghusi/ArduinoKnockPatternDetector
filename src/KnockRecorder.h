@@ -8,6 +8,7 @@
 
 
 class KnockRecorder {
+ public:
   KnockHandler* handler;
   std::vector<unsigned long> knocks;
   bool lastStatus;
@@ -15,7 +16,8 @@ class KnockRecorder {
   bool finished = false;
   unsigned int timeout;
   unsigned short snap;
- public:
+  byte debounce = 50;
+
   enum class KnockStatus : byte;
   KnockRecorder(KnockHandler*, unsigned int = 1000, unsigned short = 64);
   KnockPattern getPattern();

@@ -1,5 +1,5 @@
 /*
-  KnockDetector
+  KnockPatternDetector
 
   Checks on pin 2 for a signal (e.g. use a button).
   First of all you need to open the console (ctrl+shift+m)
@@ -10,7 +10,7 @@
 
 */
 
-#include <KnockDetector.h>
+#include <KnockPatternDetector.h>
 
 KnockDigitalHandler handler = KnockDigitalHandler(2);
 KnockPattern pattern = KnockPattern::load(0);
