@@ -6,7 +6,7 @@ KnockPattern KnockPattern::load(unsigned short address) {
   byte len = EEPROM.read(address);
   KnockPattern pattern = KnockPattern(std::vector<byte>(len));
   for (int i = 0; i < len; ++i) {
-    pattern.knocks[i] = EEPROM.read(address + i);
+    pattern.knocks[i] = EEPROM.read(address + i + 1);
   }
   return pattern;
 }
@@ -33,11 +33,13 @@ byte KnockPattern::test(KnockPattern pattern) {
   if (len1 != len2) {
     return 255;
   }
-  byte error = 0;
+  byte maxDiff = 0;
+  byte diff;
   for (int i = 0; i < len1 && i < len2; ++i) {
-    error += abs(knocks[i] - pattern.knocks[i]);
+    diff = abs(knocks[i] - pattern.knocks[i]);
+    maxDiff = diff > maxDiff ? diff : maxDiff;
   }
-  return error;
+  return maxDiff;
 }
 
 bool KnockPattern::empty() {
