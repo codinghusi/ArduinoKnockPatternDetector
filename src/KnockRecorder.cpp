@@ -1,12 +1,12 @@
 #include "KnockRecorder.h"
 #include <numeric>
 
-enum class KnockRecorder::KnockStatus : byte {
-  NOT_RECORDING, RECORDING, KNOCK
-};
+/*enum class KnockRecorder::KnockStatus : byte {
+  NotRecording, Recording, Knock
+};*/
 
 KnockRecorder::KnockRecorder(KnockHandler* handler, unsigned int timeout, unsigned short snap): handler(handler), timeout(timeout) {
-  lastStatus = handler->checkKnock(); 
+  lastStatus = handler->checkKnock();
   continueRecord();
 }
 
@@ -25,14 +25,14 @@ KnockRecorder::KnockStatus KnockRecorder::handle() {
     bool knocked = false;
     bool status = handler->checkKnock();
     bool started = knocks.size() > 0;
-    unsigned int difference = millis() - last;
+    long difference = millis() - last; // could produce an overflow (see 2 lines below)
     if (difference < 0) {
       // could happen (after 50 days)
       difference += pow(2, sizeof(unsigned long)) - 1;
     }
     if (started && difference >= timeout) {
       stop();
-      return KnockStatus::NOT_RECORDING;
+      return KnockStatus::NotRecording;
     }
     if (difference >= debounce && status != lastStatus) {
       if (status) {
@@ -41,19 +41,19 @@ KnockRecorder::KnockStatus KnockRecorder::handle() {
          difference = 0;
          started = true;
         } else {
-         difference = (unsigned long) round(float(difference) / float(snap)) * float(snap);
+         difference = (long) round(float(difference) / float(1000. / snap)) * float(1000. / snap);
         }
       }
       last = millis();
       knocks.push_back(difference);
       lastStatus = status;
       if (knocked) {
-        return KnockStatus::KNOCK;
+        return KnockStatus::Knock;
       }
     }
-    return KnockStatus::RECORDING;
+    return KnockStatus::Recording;
   }
-  return KnockStatus::NOT_RECORDING;
+  return KnockStatus::NotRecording;
 }
 
 void KnockRecorder::clear() {

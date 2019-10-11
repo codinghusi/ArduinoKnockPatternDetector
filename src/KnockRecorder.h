@@ -5,6 +5,7 @@
 #include "KnockPattern.h"
 #include <ArduinoSTL.h>
 #include <vector>
+#include <Arduino.h>
 
 
 class KnockRecorder {
@@ -18,7 +19,10 @@ class KnockRecorder {
   unsigned short snap;
   byte debounce = 50;
 
-  enum class KnockStatus : byte;
+  //enum class KnockStatus : byte;
+  enum class KnockStatus : byte {
+    NotRecording, Recording, Knock
+  };
   KnockRecorder(KnockHandler*, unsigned int = 1000, unsigned short = 64);
   KnockPattern getPattern();
   void restart();
