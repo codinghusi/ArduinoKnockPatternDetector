@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 
-KnockPattern KnockPattern::load(unsigned short address) {
+KnockPattern KnockPattern::load(unsigned int address) {
   byte len = EEPROM.read(address);
   KnockPattern pattern = KnockPattern(std::vector<byte>(len));
   for (int i = 0; i < len; ++i) {
@@ -11,7 +11,7 @@ KnockPattern KnockPattern::load(unsigned short address) {
   return pattern;
 }
 
-void KnockPattern::save(unsigned short address) {
+void KnockPattern::save(unsigned int address) {
   byte len = knocks.size();
   EEPROM.write(address, len);
   for (int i = 0; i < len; ++i) {

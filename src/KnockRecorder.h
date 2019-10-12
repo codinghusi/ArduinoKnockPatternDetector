@@ -19,7 +19,6 @@ class KnockRecorder {
   unsigned short snap;
   byte debounce = 50;
 
-  //enum class KnockStatus : byte;
   enum class KnockStatus : byte {
     NotRecording, Recording, Knock
   };
@@ -30,7 +29,6 @@ class KnockRecorder {
   bool recording();
   void continueRecord();
   void stop();
-  bool available();
   bool empty();
   void clear();
 };

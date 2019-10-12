@@ -12,8 +12,12 @@
 
 #include <KnockPatternDetector.h>
 
-KnockDigitalHandler handler = KnockDigitalHandler(2);
-KnockPattern pattern = KnockPattern::load(0);
+const byte PIN_KNOCK_SENSOR = 2;
+const byte EEPROM_PATTERN = 0;
+const byte MAXIMUM_ERROR = 25;
+
+KnockDigitalHandler handler = KnockDigitalHandler(PIN_KNOCK_SENSOR);
+KnockPattern pattern = KnockPattern::load(EEPROM_PATTERN);
 KnockRecorder recorder(&handler);
 
 void setup() {
@@ -25,7 +29,7 @@ void loop() {
   
   if (!recorder.recording()) {
     byte error = pattern.test(recorder.getPattern());
-    if (error < 50) {
+    if (error < MAXIMUM_ERROR) {
       Serial.println("that was right!");
     } else {
       Serial.println("incorrect");

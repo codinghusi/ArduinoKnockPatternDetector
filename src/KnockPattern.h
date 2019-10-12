@@ -7,11 +7,11 @@
 
 class KnockPattern {
  public:
-  static KnockPattern load(unsigned short address);
+  static KnockPattern load(unsigned int);
   std::vector<byte> knocks;
   KnockPattern();
   KnockPattern(std::vector<byte>);
-  void save(unsigned short address);
+  void save(unsigned int);
   byte test(KnockPattern);
   bool empty();
 };
