@@ -8,7 +8,7 @@ class KnockDigitalHandler: public KnockHandler {
   byte pin;
   bool negate;
  public:
-  KnockDigitalHandler(byte, bool = false);
+  KnockDigitalHandler(byte, bool = true);
   bool checkKnock();
 };
 

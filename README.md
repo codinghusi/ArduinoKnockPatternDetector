@@ -2,7 +2,15 @@
 This package allows you to record a knock pattern, saving it on the EEPROM and testing it on the fly. So you can react on a specific knock pattern.
 All that happens asynchronous and with many settings!
 
-## Example
+# Installation (Arduino IDE)
+## Manually
+Download the project and extract it into the library folder of Arduino.
+**Under Linux**: ~/Arduino/libraries
+## Library Manager
+In the IDE you can use Tools > Library Manager... (or press ctrl+shift+I) and then search for "KnockPatternDetector".
+Install it. Finished.
+
+# Example
 ```c++
 /*
   KnockPatternDetector
@@ -84,10 +92,10 @@ An example for KnockDigitalHandler:
 
 #### KnockDigitalHandler
 ```c++
-KnockDigitalHandler(byte pin, bool negate = false);
+KnockDigitalHandler(byte pin, bool negate = true);
 ```
 * **pin**: the pin where the button is connected with the arduino
-*  **negate** (defaults to false): on true it will handle a button press as release and a release as a button press
+*  **negate** (defaults to true): if it's false it will handle a HIGH-Signal as knock, on true it handels a LOW-Signal as knock
 
 > **Note**: You need to set the pinMode by yourself
 
@@ -128,6 +136,7 @@ The recorder has some public variables for configuration:
 *  **timeout** (set by constructor): the time the recorder will wait, until he pauses the recording
 *  **snap** (set by constructor): the recorder rounds the `knockTiming / (1000 / snap)`. The lower the value, the lower the precision. You can reduce the value if you have problems with a to high precision.
 * **debounce** (defaults to 50ms): the delay it waits after a new knock can be detected
+* **max** (defaults to 20): after the recorder records more than the max value it automatically stops recording
 
 #### Methods
 ```c++

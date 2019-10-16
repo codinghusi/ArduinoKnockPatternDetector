@@ -18,6 +18,7 @@ class KnockRecorder {
   unsigned int timeout;
   unsigned short snap;
   byte debounce = 50;
+  byte max = 20;
 
   enum class KnockStatus : byte {
     NotRecording, Recording, Knock

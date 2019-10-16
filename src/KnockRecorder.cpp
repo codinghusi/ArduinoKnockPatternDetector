@@ -44,6 +44,9 @@ KnockRecorder::KnockStatus KnockRecorder::handle() {
       knocks.push_back(difference);
       lastStatus = status;
       if (knocked) {
+	if (knocks.size() >= max) {
+	  stop();
+	}
         return KnockStatus::Knock;
       }
     }
