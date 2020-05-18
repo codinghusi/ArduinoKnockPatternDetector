@@ -30,7 +30,7 @@ KnockRecorder::KnockStatus KnockRecorder::handle() {
       stop();
       return KnockStatus::NotRecording;
     }
-    if (difference >= debounce && status != lastStatus) {
+    if (difference > debounce && status != lastStatus) {
       if (status) {
         knocked = true;
         if (!started) {
@@ -41,9 +41,9 @@ KnockRecorder::KnockStatus KnockRecorder::handle() {
         }
       }
       last = millis();
-      knocks.push_back(difference);
       lastStatus = status;
       if (knocked) {
+	knocks.push_back(difference);
 	if (knocks.size() >= max) {
 	  stop();
 	}
